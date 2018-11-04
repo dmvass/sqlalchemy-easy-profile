@@ -7,7 +7,6 @@ ansi_colors = {
     "magenta": 35,
     "cyan": 36,
     "white": 37,
-    "reset": 39,
     "bright_black": 90,
     "bright_red": 91,
     "bright_green": 92,
