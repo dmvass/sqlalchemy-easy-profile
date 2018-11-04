@@ -1,0 +1,13 @@
+*.pyc
+
+# Packages
+*.egg-info
+build
+dist
+
+# IDE files
+.idea
+.vscode
+
+# Environment
+.venv
