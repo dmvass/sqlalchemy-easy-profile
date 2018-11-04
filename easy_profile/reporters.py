@@ -87,15 +87,15 @@ class StreamReporter(Reporter):
         self._medium = medium
         self._high = high
         self._file = file
-        self._colorized = colorized or 0
-        self._display_duplicates = display_duplicates
+        self._colorized = colorized
+        self._display_duplicates = display_duplicates or 0
 
     def report(self, path, stats):
         duplicates = stats["duplicates"]
         stats["duplicates_count"] = sum(map(_decrement, duplicates.values()))
         stats["db"] = shorten(stats["db"], 10)
 
-        output = colorize("\n{0}\n".format(path), "bold", fg="blue")
+        output = self._colorize("\n{0}\n".format(path), "bold", fg="blue")
         output += self.stats_table(stats)
 
         total = stats["total"]
