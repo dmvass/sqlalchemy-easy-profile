@@ -23,7 +23,7 @@ OPERATOR_REGEX = re.compile("(%s) *." % "|".join(SQL_OPERATORS), re.IGNORECASE)
 
 
 def _get_object_name(obj):
-    module = getattr("__module__", obj, inspect.getmodule(obj).__name__)
+    module = getattr(obj, "__module__", inspect.getmodule(obj).__name__)
     if hasattr(obj, "__qualname__"):
         name = obj.__qualname__
     else:
@@ -74,7 +74,7 @@ class SessionProfiler:
             self.db_name = "default"
         else:
             self.engine = engine
-            self.db_name = engine.url.database
+            self.db_name = engine.url.database or "undefined"
 
         self.alive = False
         self.queries = None

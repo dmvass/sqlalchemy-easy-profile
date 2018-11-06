@@ -99,7 +99,7 @@ class StreamReporter(Reporter):
         output += self.stats_table(stats)
 
         total = stats["total"]
-        duration = stats["duration"]
+        duration = float(stats["duration"])
         summary = "Total queries: {0} in {1:.3}s".format(total, duration)
         output += self._info_line("\n{0}\n".format(summary), total)
 
