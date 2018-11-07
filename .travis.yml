@@ -1,17 +1,20 @@
 sudo: false
 language: python
 python:
-  - "2.7"
-  - "3.5"
-  - "3.6"
-  - "3.7-dev"
+- '2.7'
+- '3.5'
+- '3.6'
+- '3.7-dev'
 install: pip install tox-travis codecov
 script: tox
 after_success:
-  - codecov
+- codecov
 deploy:
   provider: pypi
-  user: "kandziu"
-  password: "dtPo7CqerUkV5h3AiunR68oY74ByHi2BidaP74LPPYSKGEKPkWwBPhmSRp8lXBmO9qeWYxho/XBv6ESbnYLjcUFcKT1phnE1zk4fHulOaQpj5x6FKUGvt+QVHczcDjA1B8hVbc9G8JmibbkHvP2kSkOkDDM0z8/2tY4QYYmhodXdHjAan2vMSvZvXWafH5vzNhmiTUNHPO3AqXgmSHFL91t4dzRLWCLs3qpozy0WHwII+AALIHjZ0u5JYVGQJV0viqgHALgq1wrl1D8TxPmvdFMhDnOV4XhRvbXTs073enkhr9SazfGfJDaN8CVlq9B/nAVNdujlLl5qZGAf7b5eBYMSc2l/vMIYIQO6eXlp2MfXpJfiHigLmq0mDax9qlhP0DkxrFtJ3a54/XdM0zOpydFkhWgGU/i7lG0NSp6IVt703+DXP5FgkanJp5Gn5026yth+D6Q7755BHAu0z6VIm1WnXaZiRmPf1IDudg0THbyMC/L/Xr7Sq1zPyxUZbWQ9KXcc4sAxwEnOMgUlf2WUFD+1QrEWHmezaFJytnTVW72l3H0+2i+aHS957ffRX8w6r2zyJBTEAgdQSnb1m8O95vK9tArOXPfkgGuJJ3/J/IfA9HVEzh+9Id8hu1Oz9oDvanDCK2D0fMCw0iU/TF//QYjGZc5KrMGkzvc2PstsTpw="
+  user: kandziu
+  distributions: sdist bdist_wheel
+  password:
+    secure: XbJqC7gLEaa9bvgdymFWZ16VH28w7Cs4FiBJVFfertjCNV+MlaP6ivbnJA80tZbFJplLQN23Gpn1T2/AV+4PiquejdY3gPMkJpMEqdVZZdGUqIgE05vB05tcCRy7+jkZT+vbBR7H5iDQcydJ1RtpDY1vYw1jKvV62Po5d72d1e7jGjTKhq0kl1scb+oqE1xSjo7dYmgTsmHKXjEJsSLtcxRHhJBq89Az3IWNc4UFj0A+BVD7GbD+RBNInoEO38VPkTJujhWjHCepgoKEaA9QML2JmwThI6jkQXC3LVxUYkXWvj4DKrG+e51byNi7xm2tCdxhvJ5yPJJv6ajDtMdLIIed2HvrRFh28sd/F23I3fIrH9/XcADn+bitUQLmW849wIcmPVzimB5CiRj7LN6FEBDs6NkcuZUeSwJf9GuyDUNgwz7NmLFUtdV/wv6HStQhQzt9B1nQmpfWNdwGIXbOJjMIZMrqTq6O6A/dPqV69wdzPIT82UXye98HSNRuX54F9v4r/opegXekCq3MqJmRjUEhQq0lZ2xubMunAnAdIVulABSfb00SgCTfcElYGCQJO5c99bgGejOi9Gb1/iQMpzrD7cNdjd6tBq2Q8smgVLRSGwPWb4BF44kJ1Ky+2vcMsAWnSz0veBG3vE1QTV1uEQZPEa25AbQXq/Dp7mbsieE=
   on:
     tags: true
+    python: '3.6'
