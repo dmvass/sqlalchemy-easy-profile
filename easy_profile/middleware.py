@@ -39,10 +39,10 @@ class EasyProfileMiddleware:
 
     def __call__(self, environ, start_response):
         path = environ.get("PATH_INFO", "")
-        method = environ.get("REQUEST_METHOD")
-        if method:
-            path = "{0} {1}".format(method, path)
         if not self._ignore_request(path):
+            method = environ.get("REQUEST_METHOD")
+            if method:
+                path = "{0} {1}".format(method, path)
             try:
                 with self.profiler:
                     response = self.app(environ, start_response)
