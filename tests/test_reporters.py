@@ -1,8 +1,8 @@
 from collections import Counter
-import io
 import unittest
-from unittest import mock
 import textwrap
+
+import mock
 
 from easy_profile.reporters import StreamReporter, shorten
 
@@ -68,7 +68,6 @@ class TestStreamReporter(unittest.TestCase):
         reporter = StreamReporter()
         self.assertEqual(reporter._medium, 50)
         self.assertEqual(reporter._high, 100)
-        self.assertIsInstance(reporter._file, io.IOBase)
         self.assertTrue(reporter._colorized)
         self.assertEqual(reporter._display_duplicates, 5)
 
@@ -92,19 +91,19 @@ class TestStreamReporter(unittest.TestCase):
         with mock.patch.object(StreamReporter, "_colorize") as mocked:
             reporter = StreamReporter()
             reporter._info_line("test", reporter._high + 1)
-            mocked.assert_called_with("test", "bold", fg="red")
+            mocked.assert_called_with("test", ["bold"], fg="red")
 
     def test__info_line_on_medium(self):
         with mock.patch.object(StreamReporter, "_colorize") as mocked:
             reporter = StreamReporter()
             reporter._info_line("test", reporter._medium + 1)
-            mocked.assert_called_with("test", "bold", fg="yellow")
+            mocked.assert_called_with("test", ["bold"], fg="yellow")
 
     def test__info_line_on_low(self):
         with mock.patch.object(StreamReporter, "_colorize") as mocked:
             reporter = StreamReporter()
             reporter._info_line("test", reporter._medium - 1)
-            mocked.assert_called_with("test", "bold", fg="green")
+            mocked.assert_called_with("test", ["bold"], fg="green")
 
     def test_stats_table(self):
         reporter = StreamReporter(colorized=False)
@@ -131,10 +130,10 @@ class TestStreamReporter(unittest.TestCase):
         summary = "\nTotal queries: {0} in {1:.3}s\n".format(total, duration)
         expected_output += summary
 
+        actual_output = file.write.call_args[0][0]
+        self.assertRegexpMatches(actual_output, expected_output)
+
         for statement, count in expected_table_stats["duplicates"].items():
             statement = textwrap.fill(statement)
-            expected_output += "\nRepeated {0} times:\n{1}\n".format(
-                count, statement
-            )
-
-        file.write.assert_called_with(expected_output)
+            text = "\nRepeated {0} times:\n{1}\n".format(count, statement)
+            self.assertRegexpMatches(actual_output, text)

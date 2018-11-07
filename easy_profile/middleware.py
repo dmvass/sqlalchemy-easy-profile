@@ -4,7 +4,7 @@ from .profiler import SessionProfiler
 from .reporters import Reporter, StreamReporter
 
 
-class EasyProfileMiddleware:
+class EasyProfileMiddleware(object):
     """This middleware prints the number of database queries for each HTTP
     request and can be applied as a WSGI server middleware.
 

@@ -28,7 +28,7 @@ ansi_options = {
 }
 
 
-def colorize(text, *opts, fg=None, bg=None):
+def colorize(text, opts=(), fg=None, bg=None):
     """Colorize text enclosed in ANSI graphics codes.
 
     Depends on the keyword arguments 'fg' and 'bg', and the contents of

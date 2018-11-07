@@ -3,13 +3,18 @@ import functools
 import sys
 import time
 import inspect
-from queue import Queue
 import re
 
 from sqlalchemy import event
 from sqlalchemy.engine.base import Engine
 
 from .reporters import StreamReporter
+
+# PY2 support queue module
+try:
+    from queue import Queue
+except ImportError:
+    from Queue import Queue
 
 # Optimize timer function for the platform
 if sys.platform == 'win32':
@@ -44,7 +49,7 @@ class DebugQuery(_DebugQuery):
         return self.end_time - self.start_time
 
 
-class SessionProfiler:
+class SessionProfiler(object):
     """A session profiler for sqlalchemy queries.
 
     The profiling session hooks into SQLAlchmey and captures query text,
@@ -173,8 +178,9 @@ class SessionProfiler:
         return self._stats
 
     def _reset_stats(self):
-        counters = ["total", "duration", *SQL_OPERATORS]
-        self._stats = dict(zip(counters, [0] * len(counters)))
+        self._stats = dict(zip(SQL_OPERATORS, [0] * len(SQL_OPERATORS)))
+        self._stats["total"] = 0
+        self._stats["duration"] = 0
         self._stats["call_stack"] = []
         self._stats["duplicates"] = Counter()
         self._stats["db"] = self.db_name

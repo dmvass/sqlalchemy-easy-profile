@@ -1,5 +1,6 @@
 import unittest
-from unittest import mock
+
+import mock
 
 from easy_profile.middleware import EasyProfileMiddleware
 from easy_profile.profiler import SessionProfiler

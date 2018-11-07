@@ -2,6 +2,7 @@
 
 # Packages
 *.egg-info
+.eggs
 build
 dist
 
@@ -11,3 +12,8 @@ dist
 
 # Environment
 .venv
+
+# Testing
+.tox
+.coverage
+

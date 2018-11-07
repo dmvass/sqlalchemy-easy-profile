@@ -1,14 +1,20 @@
 from collections import Counter
-from queue import Queue
 import time
 import unittest
-from unittest import mock
+
+import mock
 
 from sqlalchemy import create_engine, event
 from sqlalchemy.engine.base import Engine
 
 from easy_profile.profiler import SessionProfiler, DebugQuery, SQL_OPERATORS
 from easy_profile.reporters import Reporter
+
+# PY2 support queue module
+try:
+    from queue import Queue
+except ImportError:
+    from Queue import Queue
 
 
 debug_queries = [

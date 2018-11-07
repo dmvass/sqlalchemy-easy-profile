@@ -1,12 +1,12 @@
-from abc import ABC, abstractmethod
+from abc import ABCMeta, abstractmethod
 from collections import OrderedDict
 from functools import partial
 import sys
+import six
 import textwrap
 import operator
 
 from .termcolors import colorize
-
 
 _decrement = partial(operator.add, -1)
 
@@ -30,7 +30,8 @@ def shorten(text, length, placeholder="..."):
     return text
 
 
-class Reporter(ABC):
+@six.add_metaclass(ABCMeta)
+class Reporter(object):
     """Abstract class for profiler reporters"""
 
     @abstractmethod
@@ -95,7 +96,7 @@ class StreamReporter(Reporter):
         stats["duplicates_count"] = sum(map(_decrement, duplicates.values()))
         stats["db"] = shorten(stats["db"], 10)
 
-        output = self._colorize("\n{0}\n".format(path), "bold", fg="blue")
+        output = self._colorize("\n{0}\n".format(path), ["bold"], fg="blue")
         output += self.stats_table(stats)
 
         total = stats["total"]
@@ -168,12 +169,12 @@ class StreamReporter(Reporter):
         :return: colorized text
         """
         if total > self._high:
-            return self._colorize(line, "bold", fg="red")
+            return self._colorize(line, ["bold"], fg="red")
         elif total > self._medium:
-            return self._colorize(line, "bold", fg="yellow")
-        return self._colorize(line, "bold", fg="green")
+            return self._colorize(line, ["bold"], fg="yellow")
+        return self._colorize(line, ["bold"], fg="green")
 
-    def _colorize(self, text, *opts, fg=None, bg=None):
+    def _colorize(self, text, opts=(), fg=None, bg=None):
         if not self._colorized:
             return text
-        return colorize(text, *opts, fg=fg, bg=bg)
+        return colorize(text, opts, fg=fg, bg=bg)

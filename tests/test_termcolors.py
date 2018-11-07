@@ -26,13 +26,13 @@ class TestColorize(unittest.TestCase):
     def test_options(self):
         for opt, code in ansi_options.items():
             expected = "\033[{0}m".format(code) + "test" + ansi_reset
-            self.assertEqual(colorize("test", opt), expected)
+            self.assertEqual(colorize("test", [opt]), expected)
 
     def test_noreset(self):
-        self.assertEqual(colorize("test", "noreset"), "test")
+        self.assertEqual(colorize("test", ["noreset"]), "test")
 
     def test_reset(self):
-        self.assertEqual(colorize("test", "reset"), ansi_reset)
+        self.assertEqual(colorize("test", ["reset"]), ansi_reset)
 
     def test_complex(self):
         text = "test"
@@ -43,5 +43,5 @@ class TestColorize(unittest.TestCase):
             text,
             ansi_reset,
         ]
-        actual = colorize(text, "bold", "underscore", fg="black")
+        actual = colorize(text, ["bold", "underscore"], fg="black")
         self.assertEqual(actual, "".join(expected))
