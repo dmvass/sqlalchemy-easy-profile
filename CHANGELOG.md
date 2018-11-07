@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [0.3.2] - 2018-11-07
+### Added
+- Bump version config
+- Travis CI deploy to pypi
+
 ## [0.3.1] - 2018-11-07
 ### Changed
 - Travis CI python3.7 on python3.7-dev
