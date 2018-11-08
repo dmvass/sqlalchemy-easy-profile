@@ -9,7 +9,7 @@ is a library that hooks into SQLAlchemy to collect metrics, streaming statistics
 console output and help you understand where in application you have slow or redundant
 queries.
 
-![report example](/images/report-example.png?raw=true)
+![report example](https://raw.githubusercontent.com/kandziu/sqlalchemy-easy-profile/master/images/report-example.png?raw=true)
 
 ## Installation
 Install the package with pip:
