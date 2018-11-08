@@ -52,7 +52,7 @@ class DebugQuery(_DebugQuery):
 class SessionProfiler(object):
     """A session profiler for sqlalchemy queries.
 
-    The profiling session hooks into SQLAlchmey and captures query text,
+    The profiling session hooks into SQLAlchmey and captures query statements,
     duration information, and query parameters. You also may have multiple
     profiling sessions active at the same time on the same or different
     Engines. If multiple profiling sessions are active on the same engine,

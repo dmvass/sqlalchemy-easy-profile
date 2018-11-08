@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [0.4.0] - 2018-11-08
+### Added
+- README
+
 ## [0.3.4] - 2018-11-08
 ### Fixed
 - Travis CI pipy provider secure password

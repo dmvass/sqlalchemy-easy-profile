@@ -1,1 +1,110 @@
-Under development
+# SQLAlchemy Easy Profile
+[![Build Status](https://travis-ci.com/kandziu/sqlalchemy-easy-profile.svg?branch=master)](https://travis-ci.com/kandziu/sqlalchemy-easy-profile)
+[![image](https://img.shields.io/pypi/v/sqlalchemy-easy-profile.svg)](https://pypi.python.org/pypi/sqlalchemy-easy-profile)
+[![codecov](https://codecov.io/gh/kandziu/sqlalchemy-easy-profile/branch/master/graph/badge.svg)](https://codecov.io/gh/kandziu/sqlalchemy-easy-profile)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/kandziu/sqlalchemy-easy-profile/blob/master/LICENSE)
+
+Inspired by [django-querycount](https://github.com/bradmontgomery/django-querycount),
+is a library that hooks into SQLAlchemy to collect metrics, streaming statistics into
+console output and help you understand where in application you have slow or redundant
+queries.
+
+![report example](/images/report-example.png?raw=true)
+
+## Installation
+Install the package with pip:
+```
+pip install sqlalchemy-easy-profile
+```
+
+## Session profiler
+The profiling session hooks into SQLAlchmey and captures query statements, duration information,
+and query parameters. You also may have multiple profiling sessions active at the same
+time on the same or different Engines. If multiple profiling sessions are active on the
+same engine, queries on that engine will be collected by both sessions and reported on
+different reporters.
+
+You may begin and commit a profiling session as much as you like. Calling begin on an already
+started session or commit on an already committed session will raise an `AssertionError`.
+You also can use a contextmanager interface for session profiling or used it like a decorator.
+This has the effect of only profiling queries occurred within the decorated function or inside
+a manager context.
+
+How to use `begin` and `commit`:
+```python
+import easy_profile import SessionProfiler
+
+profiler = SessionProfiler()
+
+profiler.begin()
+session.query(User).filter(User.name == "Arthur Dent").first()
+profiler.commit()
+
+print(profiler.stats)
+```
+
+How to use as a context manager interface:
+```python
+profiler = SessionProfiler()
+with profiler:
+    session.query(User).filter(User.name == "Arthur Dent").first()
+
+print(profiler.stats)
+```
+
+How to use profiler as a decorator:
+```python
+profiler = SessionProfiler()
+
+class UsersResource:
+    @profiler()
+    def on_get(self, req, resp, **args, **kwargs):
+        return session.query(User).all()
+```
+
+Keep in mind that profiler decorator interface accepts a special reporter and
+If it was not defined by default will be used a base streaming reporter. Decorator
+also accept `name` and `name_callback` optional parameters.
+
+## WSGI integration
+Easy Profiler provides a specified middleware which can prints the number of database
+queries for each HTTP request and can be applied as a WSGI server middleware. So you
+can easily integrate Easy Profiler into any WSGI application.
+
+How to integrate with a Flask application:
+```python
+from flask import Flask
+import easy_profile import EasyProfileMiddleware
+
+app = Flask(__name__)
+app.wsgi_app = EasyProfileMiddleware(app.wsgi_app)
+```
+
+How to integrate with a Falcon application: 
+```python
+import falcon
+import easy_profile import EasyProfileMiddleware
+
+api = application = falcon.API()
+application = EasyProfileMiddleware(application)
+```
+
+## Testing
+To run the tests:
+```
+python setup.py test
+```
+
+Or use `tox` for running in all tests environments.
+
+## License
+This code is distributed under the terms of the MIT license.
+
+## Changes
+A full changelog is maintained in the [CAHNGELOG](https://github.com/kandziu/sqlalchemy-easy-profile/blob/master/CHANGELOG.md) file.
+
+## Contributing 
+**sqlalchemy-easy-profile** is an open source project and contributions are
+welcome! Check out the [Issues](https://github.com/kandziu/sqlalchemy-easy-profile/issues)
+page to see if your idea for a contribution has already been mentioned, and feel
+free to raise an issue or submit a pull request.
