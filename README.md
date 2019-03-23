@@ -1,15 +1,15 @@
 # SQLAlchemy Easy Profile
-[![Build Status](https://travis-ci.com/kandziu/sqlalchemy-easy-profile.svg?branch=master)](https://travis-ci.com/kandziu/sqlalchemy-easy-profile)
+[![Build Status](https://travis-ci.com/dmvass/sqlalchemy-easy-profile.svg?branch=master)](https://travis-ci.com/dmvass/sqlalchemy-easy-profile)
 [![image](https://img.shields.io/pypi/v/sqlalchemy-easy-profile.svg)](https://pypi.python.org/pypi/sqlalchemy-easy-profile)
-[![codecov](https://codecov.io/gh/kandziu/sqlalchemy-easy-profile/branch/master/graph/badge.svg)](https://codecov.io/gh/kandziu/sqlalchemy-easy-profile)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/kandziu/sqlalchemy-easy-profile/blob/master/LICENSE)
+[![codecov](https://codecov.io/gh/dmvass/sqlalchemy-easy-profile/branch/master/graph/badge.svg)](https://codecov.io/gh/dmvass/sqlalchemy-easy-profile)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/dmvass/sqlalchemy-easy-profile/blob/master/LICENSE)
 
 Inspired by [django-querycount](https://github.com/bradmontgomery/django-querycount),
 is a library that hooks into SQLAlchemy to collect metrics, streaming statistics into
 console output and help you understand where in application you have slow or redundant
 queries.
 
-![report example](https://raw.githubusercontent.com/kandziu/sqlalchemy-easy-profile/master/images/report-example.png?raw=true)
+![report example](https://raw.githubusercontent.com/dmvass/sqlalchemy-easy-profile/master/images/report-example.png?raw=true)
 
 ## Installation
 Install the package with pip:
@@ -101,10 +101,10 @@ Or use `tox` for running in all tests environments.
 This code is distributed under the terms of the MIT license.
 
 ## Changes
-A full changelog is maintained in the [CAHNGELOG](https://github.com/kandziu/sqlalchemy-easy-profile/blob/master/CHANGELOG.md) file.
+A full changelog is maintained in the [CAHNGELOG](https://github.com/dmvass/sqlalchemy-easy-profile/blob/master/CHANGELOG.md) file.
 
 ## Contributing 
 **sqlalchemy-easy-profile** is an open source project and contributions are
-welcome! Check out the [Issues](https://github.com/kandziu/sqlalchemy-easy-profile/issues)
+welcome! Check out the [Issues](https://github.com/dmvass/sqlalchemy-easy-profile/issues)
 page to see if your idea for a contribution has already been mentioned, and feel
 free to raise an issue or submit a pull request.

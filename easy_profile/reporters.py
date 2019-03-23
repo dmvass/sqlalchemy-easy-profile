@@ -1,10 +1,11 @@
 from abc import ABCMeta, abstractmethod
 from collections import OrderedDict
 from functools import partial
-import sys
-import six
-import textwrap
 import operator
+import sys
+import textwrap
+
+import six
 
 from .termcolors import colorize
 
@@ -24,6 +25,7 @@ def shorten(text, length, placeholder="..."):
     :type placeholder: str
 
     :return: truncated string
+
     """
     if len(text) > length:
         return text[:length - len(placeholder)] + placeholder
@@ -43,6 +45,7 @@ class Reporter(object):
 
         :param stats: profiling statistics
         :type stats: dict
+
         """
         pass
 
@@ -64,6 +67,7 @@ class StreamReporter(Reporter):
 
     :param display_duplicates:
     :type display_duplicates: display_duplicates
+
     """
 
     _display_names = OrderedDict([
@@ -130,6 +134,7 @@ class StreamReporter(Reporter):
 
         :return: formatted table
         :rtype: str
+
         """
         line = sep + "{}" + sep + "\n"
         h_names = [n.center(len(n) + 2) for n in self._display_names]
@@ -152,7 +157,7 @@ class StreamReporter(Reporter):
             values.append(str(value).center(size))
 
         row = line.format(sep.join(values))
-        output += self._info_line(row, stats['total'])
+        output += self._info_line(row, stats["total"])
         output += breakline
 
         return output
@@ -167,6 +172,7 @@ class StreamReporter(Reporter):
         :type total: int
 
         :return: colorized text
+
         """
         if total > self._high:
             return self._colorize(line, ["bold"], fg="red")

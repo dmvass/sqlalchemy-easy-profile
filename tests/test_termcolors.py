@@ -1,6 +1,6 @@
 import unittest
 
-from easy_profile.termcolors import colorize, ansi_reset, ansi_options
+from easy_profile.termcolors import ansi_options, ansi_reset, colorize
 
 
 class TestColorize(unittest.TestCase):

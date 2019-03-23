@@ -6,7 +6,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 ### Added
-- Supports for SQLAlchemy 1.0, 1.1 and 1.2 versions
+- Supports for SQLAlchemy 1.3
+- Makefile
+- setup.cfg
+- pep8 tox env
+### Changed
+- Set new GitHub username in the README
+- Update setup requirements
+### Fixed
+- flake8 issues
+### Removed
+- Supports for SQLAlchemy 1.0
+- .bumpversion (moved to setup.cfg)
 
 ## [0.5.0] - 2018-11-12
 ### Added

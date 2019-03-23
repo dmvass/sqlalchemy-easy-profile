@@ -1,9 +1,9 @@
 from collections import Counter, namedtuple
 import functools
-import sys
-import time
 import inspect
 import re
+import sys
+import time
 
 from sqlalchemy import event
 from sqlalchemy.engine.base import Engine
@@ -17,7 +17,7 @@ except ImportError:
     from Queue import Queue
 
 # Optimize timer function for the platform
-if sys.platform == 'win32':
+if sys.platform == "win32":
     _timer = time.clock
 else:
     _timer = time.time
@@ -52,22 +52,10 @@ class DebugQuery(_DebugQuery):
 class SessionProfiler(object):
     """A session profiler for sqlalchemy queries.
 
-    The profiling session hooks into SQLAlchmey and captures query statements,
-    duration information, and query parameters. You also may have multiple
-    profiling sessions active at the same time on the same or different
-    Engines. If multiple profiling sessions are active on the same engine,
-    queries on that engine will be collected by both sessions and reported
-    on different reporters.
+    :attr Engine engine: sqlalchemy database engine
+    :attr bool alive: is True if profiling in progress
+    :attr Queue queries: sqlalchemy queries queue
 
-    You may begin and commit a profiling session as much as you like.
-    Calling begin on an already started session or commit on an already
-    committed session will raise an :class:`AssertionError`. You also can
-    use a contextmanager interface for session profiling or used it like a
-    decorator. This has the effect of only profiling queries occurred within
-    the decorated function or inside a manager context.
-
-    :param engine: sqlalchemy database engine
-    :type engine: Engine
     """
 
     _before = "before_cursor_execute"
@@ -103,6 +91,7 @@ class SessionProfiler(object):
 
         :param path_callback: callback for getting more complex path
         :type path_callback: collections.abc.Callable
+
         """
         if reporter is None:
             reporter = StreamReporter()
@@ -138,6 +127,7 @@ class SessionProfiler(object):
         """Begin profiling session.
 
         :raises AssertionError: When the session is already alive.
+
         """
         if self.alive:
             raise AssertionError("Profiling session is already began")
@@ -153,6 +143,7 @@ class SessionProfiler(object):
         """Commit profiling session.
 
         :raises AssertionError: When the session is not alive.
+
         """
         if not self.alive:
             raise AssertionError("Profiling session is already committed")
