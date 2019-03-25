@@ -47,7 +47,6 @@ class Reporter(object):
         :type stats: dict
 
         """
-        pass
 
 
 class StreamReporter(Reporter):

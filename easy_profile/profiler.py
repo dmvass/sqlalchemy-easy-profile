@@ -17,7 +17,7 @@ except ImportError:
     from Queue import Queue
 
 # Optimize timer function for the platform
-if sys.platform == "win32":
+if sys.platform == "win32":  # pragma: no cover
     _timer = time.clock
 else:
     _timer = time.time
