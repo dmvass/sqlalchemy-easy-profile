@@ -37,7 +37,7 @@ setuptools.setup(
     url="https://github.com/kandziu/sqlalchemy-easy-profile",
     packages=setuptools.find_packages(exclude=("test*",)),
     classifiers=[
-        "Development Status :: 3 - Alpha",
+        "Development Status :: 5 - Production/Stable",
         "Intended Audience :: Developers",
         "Programming Language :: Python :: 2",
         "Programming Language :: Python :: 2.7",
