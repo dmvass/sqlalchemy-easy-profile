@@ -45,7 +45,9 @@ def colorize(text, opts=(), fg=None, bg=None):
     :param opts: text options
     :param fg: foreground color name
     :param bg: background color name
+
     :return: colorized text
+
     """
     codes = []
     if len(opts) == 1 and opts[0] == "reset":

@@ -3,11 +3,10 @@ import time
 import unittest
 
 import mock
-
 from sqlalchemy import create_engine, event
 from sqlalchemy.engine.base import Engine
 
-from easy_profile.profiler import SessionProfiler, DebugQuery, SQL_OPERATORS
+from easy_profile.profiler import DebugQuery, SessionProfiler, SQL_OPERATORS
 from easy_profile.reporters import Reporter
 
 # PY2 support queue module

@@ -1,14 +1,27 @@
 sudo: false
+
 language: python
+
+dist: xenial
+
 python:
 - '2.7'
 - '3.5'
 - '3.6'
-- '3.7-dev'
+- '3.7'
+
+matrix:
+  include:
+    - python: 3.7
+      env: TOXENV=pep8
+
 install: pip install tox-travis codecov
+
 script: tox
+
 after_success:
 - codecov
+
 deploy:
   provider: pypi
   user: kandziu
@@ -17,4 +30,4 @@ deploy:
     secure: XbJqC7gLEaa9bvgdymFWZ16VH28w7Cs4FiBJVFfertjCNV+MlaP6ivbnJA80tZbFJplLQN23Gpn1T2/AV+4PiquejdY3gPMkJpMEqdVZZdGUqIgE05vB05tcCRy7+jkZT+vbBR7H5iDQcydJ1RtpDY1vYw1jKvV62Po5d72d1e7jGjTKhq0kl1scb+oqE1xSjo7dYmgTsmHKXjEJsSLtcxRHhJBq89Az3IWNc4UFj0A+BVD7GbD+RBNInoEO38VPkTJujhWjHCepgoKEaA9QML2JmwThI6jkQXC3LVxUYkXWvj4DKrG+e51byNi7xm2tCdxhvJ5yPJJv6ajDtMdLIIed2HvrRFh28sd/F23I3fIrH9/XcADn+bitUQLmW849wIcmPVzimB5CiRj7LN6FEBDs6NkcuZUeSwJf9GuyDUNgwz7NmLFUtdV/wv6HStQhQzt9B1nQmpfWNdwGIXbOJjMIZMrqTq6O6A/dPqV69wdzPIT82UXye98HSNRuX54F9v4r/opegXekCq3MqJmRjUEhQq0lZ2xubMunAnAdIVulABSfb00SgCTfcElYGCQJO5c99bgGejOi9Gb1/iQMpzrD7cNdjd6tBq2Q8smgVLRSGwPWb4BF44kJ1Ky+2vcMsAWnSz0veBG3vE1QTV1uEQZPEa25AbQXq/Dp7mbsieE=
   on:
     tags: true
-    python: '3.6'
+    python: '3.7'

@@ -1,6 +1,6 @@
 import unittest
 
-from easy_profile.termcolors import colorize, ansi_reset, ansi_options
+from easy_profile.termcolors import ansi_options, ansi_reset, colorize
 
 
 class TestColorize(unittest.TestCase):
@@ -20,8 +20,8 @@ class TestColorize(unittest.TestCase):
             "bright_blue", "bright_magenta", "bright_cyan", "bright_white"
         ]
         for color, code in dict(zip(colors, range(90, 98))).items():
-            expected = "\033[{0}m".format(code) + "test" + ansi_reset
-            self.assertEqual(colorize("test", fg=color), expected)
+            expected = "\033[{0}m".format(code + 10) + "test" + ansi_reset
+            self.assertEqual(colorize("test", bg=color), expected)
 
     def test_options(self):
         for opt, code in ansi_options.items():

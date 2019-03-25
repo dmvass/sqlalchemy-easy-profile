@@ -1,5 +1,6 @@
+from os.path import dirname, join
 import re
-from os.path import join, dirname
+
 import setuptools
 
 
@@ -34,7 +35,7 @@ setuptools.setup(
     long_description=read("README.md"),
     long_description_content_type="text/markdown",
     url="https://github.com/kandziu/sqlalchemy-easy-profile",
-    packages=setuptools.find_packages(exclude=('test*',)),
+    packages=setuptools.find_packages(exclude=("test*",)),
     classifiers=[
         "Development Status :: 3 - Alpha",
         "Intended Audience :: Developers",
@@ -48,7 +49,7 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ],
     keywords=["sqlalchemy", "easy", "profile", "profiler", "profiling"],
-    install_requires=["sqlalchemy>=1.0,<1.3"],
+    install_requires=["sqlalchemy>=1.1,<1.4"],
     tests_require=["coverage", "mock"],
     extras_require={"dev": ["tox", "bumpversion"]}
 )
