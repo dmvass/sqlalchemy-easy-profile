@@ -1,0 +1,4 @@
+[run]
+branch = True
+source = easy_profile
+omit = setup.py

@@ -1,21 +1,9 @@
-.PHONY: patch minor major release clean
+.PHONY: release clean
 
 
 PROJECT_DIR=easy_profile
 
 PYTHON ?= python
-
-
-patch:
-	bumpversion patch
-
-
-minor:
-	bumpversion minor
-
-
-major:
-	bumpversion major
 
 
 release: clean
