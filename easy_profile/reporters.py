@@ -3,7 +3,7 @@ from collections import OrderedDict
 from functools import partial
 import operator
 import sys
-import textwrap
+import sqlparse
 
 import six
 
@@ -116,7 +116,7 @@ class StreamReporter(Reporter):
         for statement, count in most_common:
             if count > 1:
                 # Wrap SQL statement and returning a list of wrapped lines
-                statement = textwrap.fill(statement)
+                statement = str(sqlparse.format(statement, reindent=True, keyword_case='upper'))
                 text = "\nRepeated {0} times:\n{1}\n".format(count, statement)
                 output += self._info_line(text, count)
 
