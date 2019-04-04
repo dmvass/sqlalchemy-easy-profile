@@ -1,8 +1,8 @@
 from collections import Counter
-import textwrap
 import unittest
 
 import mock
+import sqlparse
 
 from easy_profile.reporters import shorten, StreamReporter
 
@@ -134,6 +134,8 @@ class TestStreamReporter(unittest.TestCase):
         self.assertRegexpMatches(actual_output, expected_output)
 
         for statement, count in expected_table_stats["duplicates"].items():
-            statement = textwrap.fill(statement)
+            statement = str(
+                sqlparse.format(statement, reindent=True, keyword_case="upper")
+            )
             text = "\nRepeated {0} times:\n{1}\n".format(count, statement)
             self.assertRegexpMatches(actual_output, text)
