@@ -7,6 +7,7 @@ import setuptools
 def find_version(fname):
     """Attempts to find the version number in the file names fname.
     Raises RuntimeError if not found.
+
     """
     version = ""
     with open(fname, "r") as fp:
@@ -34,7 +35,7 @@ setuptools.setup(
     description="An easy profiler for SQLAlchemy queries",
     long_description=read("README.md"),
     long_description_content_type="text/markdown",
-    url="https://github.com/kandziu/sqlalchemy-easy-profile",
+    url="https://github.com/dmvass/sqlalchemy-easy-profile",
     packages=setuptools.find_packages(exclude=("test*",)),
     classifiers=[
         "Development Status :: 5 - Production/Stable",

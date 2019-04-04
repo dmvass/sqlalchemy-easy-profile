@@ -56,7 +56,7 @@ class TestStreamReporter(unittest.TestCase):
             high=2,
             file=mocked_file,
             colorized=False,
-            display_duplicates=None
+            display_duplicates=0
         )
         self.assertEqual(reporter._medium, 1)
         self.assertEqual(reporter._high, 2)
@@ -118,8 +118,8 @@ class TestStreamReporter(unittest.TestCase):
         self.assertEqual(actual_table.strip(), expected.strip())
 
     def test_report(self):
-        file = mock.Mock()
-        reporter = StreamReporter(colorized=False, file=file)
+        dest = mock.Mock()
+        reporter = StreamReporter(colorized=False, file=dest)
         reporter.report("test", expected_table_stats)
 
         expected_output = "\ntest"
@@ -130,12 +130,12 @@ class TestStreamReporter(unittest.TestCase):
         summary = "\nTotal queries: {0} in {1:.3}s\n".format(total, duration)
         expected_output += summary
 
-        actual_output = file.write.call_args[0][0]
+        actual_output = dest.write.call_args[0][0]
         self.assertRegexpMatches(actual_output, expected_output)
 
         for statement, count in expected_table_stats["duplicates"].items():
-            statement = str(
-                sqlparse.format(statement, reindent=True, keyword_case="upper")
+            statement = sqlparse.format(
+                statement, reindent=True, keyword_case="upper"
             )
             text = "\nRepeated {0} times:\n{1}\n".format(count, statement)
             self.assertRegexpMatches(actual_output, text)
