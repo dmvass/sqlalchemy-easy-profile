@@ -5,7 +5,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [1.0.1] - 2019-04-04
 ### Added
+- Human readable sql output to the console [@Tomasz-Kluczkowski](https://github.com/Tomasz-Kluczkowski)
 - Py2 unicode support
 - Docstring improvements
 
