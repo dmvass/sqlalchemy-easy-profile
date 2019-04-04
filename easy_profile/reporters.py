@@ -1,3 +1,5 @@
+from __future__ import unicode_literals
+
 from abc import ABCMeta, abstractmethod
 from collections import OrderedDict
 from functools import partial
@@ -15,14 +17,9 @@ _decrement = partial(operator.add, -1)
 def shorten(text, length, placeholder="..."):
     """Truncate the given text to fit in the given length.
 
-    :param text: string for truncate
-    :type text: str
-
-    :param length: max length of string
-    :type length: int
-
-    :param placeholder: append to the end of truncated text
-    :type placeholder: str
+    :param str|unicode text: string for truncate
+    :param int length: max length of string
+    :param str|unicode placeholder: append to the end of truncated text
 
     :return: truncated string
 
@@ -34,17 +31,14 @@ def shorten(text, length, placeholder="..."):
 
 @six.add_metaclass(ABCMeta)
 class Reporter(object):
-    """Abstract class for profiler reporters"""
+    """Abstract class for profiler reporters."""
 
     @abstractmethod
     def report(self, path, stats):
         """Reports profiling statistic to a stream.
 
-        :param path: where profiling occurred
-        :type path: str
-
-        :param stats: profiling statistics
-        :type stats: dict
+        :param str|unicode path: where profiling occurred
+        :param dict stats: profiling statistics
 
         """
 
@@ -53,19 +47,11 @@ class StreamReporter(Reporter):
     """A base reporter for streaming to a file. By default reports
     will be written to ``sys.stdout``.
 
-    :param medium: a medium threshold count
-    :type medium: int
-
-    :param high: a medium threshold count
-    :type high: int
-
-    :param file: output
-
-    :param colorized:
-    :type colorized: bool
-
-    :param display_duplicates:
-    :type display_duplicates: display_duplicates
+    :param int medium: a medium threshold count
+    :param int high: a medium threshold count
+    :param file: output destination (stdout by default)
+    :param bool colorized: set True if output should be colorized
+    :param int display_duplicates: how much sql duplicates will be displayed
 
     """
 
@@ -88,6 +74,7 @@ class StreamReporter(Reporter):
 
         if medium >= high:
             raise ValueError("Medium must be less than high")
+
         self._medium = medium
         self._high = high
         self._file = file
@@ -116,10 +103,8 @@ class StreamReporter(Reporter):
         for statement, count in most_common:
             if count > 1:
                 # Wrap SQL statement and returning a list of wrapped lines
-                statement = str(
-                    sqlparse.format(
-                        statement, reindent=True, keyword_case="upper"
-                    )
+                statement = sqlparse.format(
+                    statement, reindent=True, keyword_case="upper"
                 )
                 text = "\nRepeated {0} times:\n{1}\n".format(count, statement)
                 output += self._info_line(text, count)
@@ -129,14 +114,11 @@ class StreamReporter(Reporter):
     def stats_table(self, stats, sep="|"):
         """Formats profiling statistics as table.
 
-        :param stats: profiling statistics
-        :type stats: dict
-
-        :param sep: columns separator character
-        :type sep: str
+        :param dict stats: profiling statistics
+        :param str|unicode sep: columns separator character
 
         :return: formatted table
-        :rtype: str
+        :rtype: str|unicode
 
         """
         line = sep + "{}" + sep + "\n"
@@ -168,11 +150,8 @@ class StreamReporter(Reporter):
     def _info_line(self, line, total):
         """Returns colorized text according threshold.
 
-        :param line: text which will be colorized
-        :type line: str
-
-        :param total: threshold count
-        :type total: int
+        :param str|unicode line: text which should be colorized
+        :param int total: threshold count
 
         :return: colorized text
 

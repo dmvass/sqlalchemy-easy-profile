@@ -1,3 +1,5 @@
+from __future__ import unicode_literals
+
 import re
 
 from .profiler import SessionProfiler
@@ -9,11 +11,12 @@ class EasyProfileMiddleware(object):
     request and can be applied as a WSGI server middleware.
 
     :param app: WSGI application server
-    :param engine: sqlalchemy database engine
-    :param reporter: reporter instance
-    :param exclude_path: a list of regex patterns for excluding requests
-    :param min_time: minimal queries duration to logging
-    :param min_query_count: minimal queries count to logging
+    :param sqlalchemy.engine.base.Engine engine: sqlalchemy database engine
+    :param Reporter reporter: reporter instance
+    :param list exclude_path: a list of regex patterns for excluding requests
+    :param int min_time: minimal queries duration to logging
+    :param int min_query_count: minimal queries count to logging
+
     """
 
     def __init__(self,
