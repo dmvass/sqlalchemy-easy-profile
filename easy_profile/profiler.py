@@ -52,7 +52,8 @@ class DebugQuery(_DebugQuery):
 class SessionProfiler(object):
     """A session profiler for sqlalchemy queries.
 
-    :attr Engine engine: sqlalchemy database engine
+    :param Engine engine: sqlalchemy database engine
+
     :attr bool alive: is True if profiling in progress
     :attr Queue queries: sqlalchemy queries queue
 
@@ -86,11 +87,9 @@ class SessionProfiler(object):
         If reporter was not defined by default will be used a base
         streaming reporter.
 
-        :param reporter: profiling reporter
-        :type reporter: easy_profile.reporters.Reporter
-
-        :param path_callback: callback for getting more complex path
-        :type path_callback: collections.abc.Callable
+        :param easy_profile.reporters.Reporter reporter: profiling reporter
+        :param collections.abc.Callable path_callback: callback for getting
+            more complex path
 
         """
         if reporter is None:

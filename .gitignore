@@ -11,9 +11,8 @@ dist
 .vscode
 
 # Environment
-.venv
+.venv*
 
 # Testing
 .tox
 .coverage
-
