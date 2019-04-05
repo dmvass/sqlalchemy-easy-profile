@@ -24,8 +24,8 @@ expected_table_stats = {
     "total": 13,
     "duration": 0.0345683,
     "duplicates": Counter({
-        "SELECT id FROM users": 3,
-        "SELECT id, name FROM users": 2,
+        "SELECT id FROM users": 2,
+        "SELECT id, name FROM users": 1,
     }),
     "duplicates_count": 3,
 }
@@ -137,5 +137,5 @@ class TestStreamReporter(unittest.TestCase):
             statement = sqlparse.format(
                 statement, reindent=True, keyword_case="upper"
             )
-            text = "\nRepeated {0} times:\n{1}\n".format(count, statement)
+            text = "\nRepeated {0} times:\n{1}\n".format(count + 1, statement)
             self.assertRegexpMatches(actual_output, text)

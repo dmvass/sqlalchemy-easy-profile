@@ -135,7 +135,8 @@ class TestSessionProfiler(unittest.TestCase):
         duplicates = Counter()
         for query in debug_queries:
             profiler.queries.put(query)
-            duplicates[query.statement] += 1
+            duplicates_count = duplicates.get(query.statement, -1)
+            duplicates[query.statement] = duplicates_count + 1
 
         stats = profiler._get_stats()
 

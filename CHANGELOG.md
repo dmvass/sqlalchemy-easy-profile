@@ -5,6 +5,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Changed
+- Profiler stats type from `dict` on `OrderedDict`
+### Fixed
+- Readme examples imports from [@dbourdeveloper](https://github.com/dbourdeveloper)
+- Profiler duplicates counter (now it's begin countig from `0`)
 
 ## [1.0.1] - 2019-04-04
 ### Added
