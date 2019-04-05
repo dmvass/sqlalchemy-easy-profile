@@ -32,7 +32,7 @@ a manager context.
 
 How to use `begin` and `commit`:
 ```python
-import easy_profile import SessionProfiler
+from easy_profile import SessionProfiler
 
 profiler = SessionProfiler()
 
@@ -74,7 +74,7 @@ can easily integrate Easy Profiler into any WSGI application.
 How to integrate with a Flask application:
 ```python
 from flask import Flask
-import easy_profile import EasyProfileMiddleware
+from easy_profile import EasyProfileMiddleware
 
 app = Flask(__name__)
 app.wsgi_app = EasyProfileMiddleware(app.wsgi_app)
@@ -83,7 +83,7 @@ app.wsgi_app = EasyProfileMiddleware(app.wsgi_app)
 How to integrate with a Falcon application: 
 ```python
 import falcon
-import easy_profile import EasyProfileMiddleware
+from easy_profile import EasyProfileMiddleware
 
 api = application = falcon.API()
 application = EasyProfileMiddleware(application)
