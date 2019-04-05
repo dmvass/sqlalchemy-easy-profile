@@ -2,16 +2,12 @@ from __future__ import unicode_literals
 
 from abc import ABCMeta, abstractmethod
 from collections import OrderedDict
-from functools import partial
-import operator
 import sys
 
 import six
 import sqlparse
 
 from .termcolors import colorize
-
-_decrement = partial(operator.add, -1)
 
 
 def shorten(text, length, placeholder="..."):
@@ -83,7 +79,7 @@ class StreamReporter(Reporter):
 
     def report(self, path, stats):
         duplicates = stats["duplicates"]
-        stats["duplicates_count"] = sum(map(_decrement, duplicates.values()))
+        stats["duplicates_count"] = sum(duplicates.values())
         stats["db"] = shorten(stats["db"], 10)
 
         output = self._colorize("\n{0}\n".format(path), ["bold"], fg="blue")
@@ -101,13 +97,14 @@ class StreamReporter(Reporter):
         # set to `0` or `None`.
         most_common = duplicates.most_common(self._display_duplicates)
         for statement, count in most_common:
-            if count > 1:
-                # Wrap SQL statement and returning a list of wrapped lines
-                statement = sqlparse.format(
-                    statement, reindent=True, keyword_case="upper"
-                )
-                text = "\nRepeated {0} times:\n{1}\n".format(count, statement)
-                output += self._info_line(text, count)
+            if count < 1:
+                continue
+            # Wrap SQL statement and returning a list of wrapped lines
+            statement = sqlparse.format(
+                statement, reindent=True, keyword_case="upper"
+            )
+            text = "\nRepeated {0} times:\n{1}\n".format(count + 1, statement)
+            output += self._info_line(text, count)
 
         self._file.write(output)
 

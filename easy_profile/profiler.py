@@ -1,4 +1,4 @@
-from collections import Counter, namedtuple
+from collections import Counter, namedtuple, OrderedDict
 import functools
 import inspect
 import re
@@ -163,17 +163,22 @@ class SessionProfiler(object):
                 self._stats[match.group(1).lower()] += 1
                 self._stats["total"] += 1
                 self._stats["duration"] += query.duration
-                self._stats["duplicates"][query.statement] += 1
+                duplicates = self._stats["duplicates"].get(query.statement, -1)
+                self._stats["duplicates"][query.statement] = duplicates + 1
 
         return self._stats
 
     def _reset_stats(self):
-        self._stats = dict(zip(SQL_OPERATORS, [0] * len(SQL_OPERATORS)))
+        self._stats = OrderedDict()
+        self._stats["db"] = self.db_name
+
+        for operator in SQL_OPERATORS:
+            self._stats[operator] = 0
+
         self._stats["total"] = 0
         self._stats["duration"] = 0
         self._stats["call_stack"] = []
         self._stats["duplicates"] = Counter()
-        self._stats["db"] = self.db_name
 
     def _before_cursor_execute(self, conn, cursor, statement, parameters,
                                context, executemany):
