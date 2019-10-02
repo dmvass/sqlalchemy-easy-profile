@@ -18,7 +18,7 @@ pip install sqlalchemy-easy-profile
 ```
 
 ## Session profiler
-The profiling session hooks into SQLAlchmey and captures query statements, duration information,
+The profiling session hooks into SQLAlchemy and captures query statements, duration information,
 and query parameters. You also may have multiple profiling sessions active at the same
 time on the same or different Engines. If multiple profiling sessions are active on the
 same engine, queries on that engine will be collected by both sessions and reported on
@@ -101,7 +101,7 @@ Or use `tox` for running in all tests environments.
 This code is distributed under the terms of the MIT license.
 
 ## Changes
-A full changelog is maintained in the [CAHNGELOG](https://github.com/dmvass/sqlalchemy-easy-profile/blob/master/CHANGELOG.md) file.
+A full changelog is maintained in the [CHANGELOG](https://github.com/dmvass/sqlalchemy-easy-profile/blob/master/CHANGELOG.md) file.
 
 ## Contributing 
 **sqlalchemy-easy-profile** is an open source project and contributions are
