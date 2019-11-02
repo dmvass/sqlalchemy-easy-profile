@@ -94,3 +94,19 @@ class TestEasyProfileMiddleware(unittest.TestCase):
             environ = dict(PATH_INFO="/api/users", REQUEST_METHOD="GET")
             mw(environ, None)
             mocked_report_stats.assert_not_called()
+
+    def test__call__with_exception_triggered_when_getting_response(self):
+        app = mock.Mock()
+        app.side_effect = Exception("boom")
+        mw = EasyProfileMiddleware(
+            app=app,
+            reporter=mock.Mock(spec=Reporter),
+            exclude_path=[r"^/api/users"]
+        )
+        with mock.patch.object(mw, "_report_stats") as mocked_report_stats:
+            environ = dict(PATH_INFO="/api/roles", REQUEST_METHOD="GET")
+            with self.assertRaises(Exception):
+                mw(environ, None)
+            mocked_report_stats.assert_called()
+            expected = environ["REQUEST_METHOD"] + " " + environ["PATH_INFO"]
+            self.assertEqual(mocked_report_stats.call_args[0][0], expected)
