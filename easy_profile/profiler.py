@@ -130,7 +130,7 @@ class SessionProfiler(object):
 
         """
         if self.alive:
-            raise AssertionError("Profiling session is already began")
+            raise AssertionError("Profiling session has already began")
 
         self.alive = True
         self.queries = Queue()
