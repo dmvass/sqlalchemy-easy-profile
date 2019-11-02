@@ -3,7 +3,6 @@ import unittest
 import mock
 
 from easy_profile.middleware import EasyProfileMiddleware
-from easy_profile.profiler import SessionProfiler
 from easy_profile.reporters import Reporter, StreamReporter
 
 
@@ -13,7 +12,7 @@ class TestEasyProfileMiddleware(unittest.TestCase):
         mocked_app = mock.Mock()
         mw = EasyProfileMiddleware(mocked_app)
         self.assertEqual(mw.app, mocked_app)
-        self.assertIsInstance(mw.profiler, SessionProfiler)
+        self.assertIs(mw.engine, None)
         self.assertIsInstance(mw.reporter, StreamReporter)
         self.assertEqual(mw.exclude_path, [])
         self.assertEqual(mw.min_time, 0)
