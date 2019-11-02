@@ -85,7 +85,7 @@ class TestSessionProfiler(unittest.TestCase):
             profiler.begin()
 
         error = exec_info.exception
-        self.assertEqual(str(error), "Profiling session is already began")
+        self.assertEqual(str(error), "Profiling session has already begun")
 
     def test_commit(self):
         profiler = SessionProfiler()
