@@ -1,4 +1,6 @@
 import unittest
+from concurrent.futures import as_completed
+from concurrent.futures.thread import ThreadPoolExecutor
 
 import mock
 
@@ -110,3 +112,27 @@ class TestEasyProfileMiddleware(unittest.TestCase):
             mocked_report_stats.assert_called()
             expected = environ["REQUEST_METHOD"] + " " + environ["PATH_INFO"]
             self.assertEqual(mocked_report_stats.call_args[0][0], expected)
+
+    def test__call__multiple_concurrent_calls(self):
+        fake_response = 'fake response'
+        mock_app = mock.Mock()
+        mock_app.return_value = fake_response
+        mw = EasyProfileMiddleware(
+            mock_app,
+            reporter=mock.Mock(spec=Reporter),
+            exclude_path=[r"^/api/users"]
+        )
+        thread_pool_executor = ThreadPoolExecutor(max_workers=2)
+        with mock.patch.object(mw, "_report_stats") as mocked_report_stats:
+            environ = dict(PATH_INFO="/api/roles", REQUEST_METHOD="GET")
+            with thread_pool_executor:
+                futures = [thread_pool_executor.submit(mw, environ, None) for _ in range(1000)]
+
+        # Get completed results for all calls.
+        results = [completed_future.result() for completed_future in as_completed(futures)]
+        assert len(set(results)) == 1
+        assert results[0] == fake_response
+
+        assert mocked_report_stats.call_count == 1000
+        expected = environ["REQUEST_METHOD"] + " " + environ["PATH_INFO"]
+        self.assertEqual(mocked_report_stats.call_args[0][0], expected)
