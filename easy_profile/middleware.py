@@ -35,22 +35,23 @@ class EasyProfileMiddleware(object):
             self.reporter = StreamReporter()
 
         self.app = app
-        self.profiler = SessionProfiler(engine)
+        self.engine = engine
         self.exclude_path = exclude_path or []
         self.min_time = min_time
         self.min_query_count = min_query_count
 
     def __call__(self, environ, start_response):
+        profiler = SessionProfiler(self.engine)
         path = environ.get("PATH_INFO", "")
         if not self._ignore_request(path):
             method = environ.get("REQUEST_METHOD")
             if method:
                 path = "{0} {1}".format(method, path)
             try:
-                with self.profiler:
+                with profiler:
                     response = self.app(environ, start_response)
             finally:
-                self._report_stats(path, self.profiler.stats)
+                self._report_stats(path, profiler.stats)
             return response
         return self.app(environ, start_response)
 

@@ -5,6 +5,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+- Fixed an issue where concurrent calls to an API would cause "Profiling session has already begun" exception.
 
 ## [1.0.2] - 2019-04-06
 ### Changed

@@ -1,9 +1,14 @@
+from threading import Thread
+from time import sleep
 import unittest
+try:
+    from queue import Queue
+except ImportError:
+    from Queue import Queue
 
 import mock
 
 from easy_profile.middleware import EasyProfileMiddleware
-from easy_profile.profiler import SessionProfiler
 from easy_profile.reporters import Reporter, StreamReporter
 
 
@@ -13,7 +18,7 @@ class TestEasyProfileMiddleware(unittest.TestCase):
         mocked_app = mock.Mock()
         mw = EasyProfileMiddleware(mocked_app)
         self.assertEqual(mw.app, mocked_app)
-        self.assertIsInstance(mw.profiler, SessionProfiler)
+        self.assertIs(mw.engine, None)
         self.assertIsInstance(mw.reporter, StreamReporter)
         self.assertEqual(mw.exclude_path, [])
         self.assertEqual(mw.min_time, 0)
@@ -95,3 +100,56 @@ class TestEasyProfileMiddleware(unittest.TestCase):
             environ = dict(PATH_INFO="/api/users", REQUEST_METHOD="GET")
             mw(environ, None)
             mocked_report_stats.assert_not_called()
+
+    def test__call__with_exception_triggered_when_getting_response(self):
+        app = mock.Mock()
+        app.side_effect = Exception("boom")
+        mw = EasyProfileMiddleware(
+            app=app,
+            reporter=mock.Mock(spec=Reporter),
+            exclude_path=[r"^/api/users"]
+        )
+        with mock.patch.object(mw, "_report_stats") as mocked_report_stats:
+            environ = dict(PATH_INFO="/api/roles", REQUEST_METHOD="GET")
+            with self.assertRaises(Exception):
+                mw(environ, None)
+            mocked_report_stats.assert_called()
+            expected = environ["REQUEST_METHOD"] + " " + environ["PATH_INFO"]
+            self.assertEqual(mocked_report_stats.call_args[0][0], expected)
+
+    def test__call__with_multiple_concurrent_calls(self):
+        fake_response = "fake response"
+
+        def fake_call(*args, **kwargs):
+            sleep(1)
+            return fake_response
+
+        mock_app = mock.Mock()
+        mock_app.side_effect = fake_call
+        mw = EasyProfileMiddleware(
+            mock_app,
+            reporter=mock.Mock(spec=Reporter),
+            exclude_path=[r"^/api/users"]
+        )
+
+        thread_queue = Queue()
+        threads = []
+        repeats = 5
+
+        with mock.patch.object(mw, "_report_stats"):
+            environ = dict(PATH_INFO="/api/roles", REQUEST_METHOD="GET")
+            for i in range(repeats):
+                thread = Thread(
+                    target=lambda queue, fn, env: queue.put(fn(env, None)),
+                    args=(thread_queue, mw, environ)
+                )
+                thread.start()
+                threads.append(thread)
+        [thread.join() for thread in threads]
+
+        results = []
+        while not thread_queue.empty():
+            results.append(thread_queue.get())
+
+        assert len(results) == repeats
+        assert set(results) == {fake_response}
