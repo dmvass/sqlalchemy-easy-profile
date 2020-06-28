@@ -1,7 +1,7 @@
-import unittest
 from queue import Queue
 from threading import Thread
 from time import sleep
+import unittest
 
 import mock
 

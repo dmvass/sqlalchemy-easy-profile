@@ -1,6 +1,6 @@
-import sys
 from abc import ABC, abstractmethod
 from collections import OrderedDict
+import sys
 
 import sqlparse
 

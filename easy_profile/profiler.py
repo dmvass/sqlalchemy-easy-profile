@@ -1,10 +1,10 @@
+from collections import Counter, namedtuple, OrderedDict
 import functools
 import inspect
+from queue import Queue
 import re
 import sys
 import time
-from collections import Counter, OrderedDict, namedtuple
-from queue import Queue
 
 from sqlalchemy import event
 from sqlalchemy.engine.base import Engine

@@ -1,13 +1,13 @@
-import time
-import unittest
 from collections import Counter
 from queue import Queue
+import time
+import unittest
 
 import mock
 from sqlalchemy import create_engine, event
 from sqlalchemy.engine.base import Engine
 
-from easy_profile.profiler import SQL_OPERATORS, DebugQuery, SessionProfiler
+from easy_profile.profiler import DebugQuery, SessionProfiler, SQL_OPERATORS
 from easy_profile.reporters import Reporter
 
 
