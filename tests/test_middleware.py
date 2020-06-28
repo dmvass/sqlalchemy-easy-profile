@@ -1,10 +1,7 @@
+import unittest
+from queue import Queue
 from threading import Thread
 from time import sleep
-import unittest
-try:
-    from queue import Queue
-except ImportError:
-    from Queue import Queue
 
 import mock
 

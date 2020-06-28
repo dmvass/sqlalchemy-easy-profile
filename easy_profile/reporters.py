@@ -1,10 +1,7 @@
-from __future__ import unicode_literals
-
-from abc import ABCMeta, abstractmethod
-from collections import OrderedDict
 import sys
+from abc import ABC, abstractmethod
+from collections import OrderedDict
 
-import six
 import sqlparse
 
 from .termcolors import colorize
@@ -25,8 +22,7 @@ def shorten(text, length, placeholder="..."):
     return text
 
 
-@six.add_metaclass(ABCMeta)
-class Reporter(object):
+class Reporter(ABC):
     """Abstract class for profiler reporters."""
 
     @abstractmethod

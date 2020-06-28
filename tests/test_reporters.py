@@ -1,10 +1,10 @@
-from collections import Counter
 import unittest
+from collections import Counter
 
 import mock
 import sqlparse
 
-from easy_profile.reporters import shorten, StreamReporter
+from easy_profile.reporters import StreamReporter, shorten
 
 
 expected_table = """

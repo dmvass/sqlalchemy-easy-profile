@@ -1,20 +1,15 @@
-from collections import Counter, namedtuple, OrderedDict
 import functools
 import inspect
 import re
 import sys
 import time
+from collections import Counter, OrderedDict, namedtuple
+from queue import Queue
 
 from sqlalchemy import event
 from sqlalchemy.engine.base import Engine
 
 from .reporters import StreamReporter
-
-# PY2 support queue module
-try:
-    from queue import Queue
-except ImportError:
-    from Queue import Queue
 
 # Optimize timer function for the platform
 if sys.platform == "win32":  # pragma: no cover
@@ -49,7 +44,7 @@ class DebugQuery(_DebugQuery):
         return self.end_time - self.start_time
 
 
-class SessionProfiler(object):
+class SessionProfiler:
     """A session profiler for sqlalchemy queries.
 
     :param Engine engine: sqlalchemy database engine
