@@ -2,8 +2,7 @@ from queue import Queue
 from threading import Thread
 from time import sleep
 import unittest
-
-import mock
+from unittest import mock
 
 from easy_profile.middleware import EasyProfileMiddleware
 from easy_profile.reporters import Reporter, StreamReporter

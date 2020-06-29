@@ -1,7 +1,7 @@
 from collections import Counter
 import unittest
+from unittest import mock
 
-import mock
 import sqlparse
 
 from easy_profile.reporters import shorten, StreamReporter

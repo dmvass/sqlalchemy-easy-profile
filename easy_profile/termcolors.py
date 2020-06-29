@@ -41,10 +41,10 @@ def colorize(text, opts=(), fg=None, bg=None):
         'bold', 'underscore', 'blink', 'reverse', 'conceal'
         'noreset' - string will not be terminated with the reset code
 
-    :param str|unicode text: your text
+    :param str text: your text
     :param tuple opts: text options
-    :param str|unicode fg: foreground color name
-    :param str|unicode bg: background color name
+    :param str fg: foreground color name
+    :param str bg: background color name
 
     :return: colorized text
 

@@ -89,6 +89,37 @@ api = application = falcon.API()
 application = EasyProfileMiddleware(application)
 ```
 
+## How to customize output
+
+The `StreamReporter` accepts medium-high thresholds, output file destination (stdout by default), a special
+flag for disabling color formatting and number of displayed duplicated queries:
+
+```python
+from flask import Flask
+from easy_profile import EasyProfileMiddleware, StreamReporter
+
+app = Flask(__name__)
+app.wsgi_app = EasyProfileMiddleware(app.wsgi_app, reporter=StreamReporter(display_duplicates=100))
+```
+
+Any custom reporter can be created as:
+
+```python
+from easy_profile.reporters import Reporter
+
+class CustomReporter(Reporter):
+
+    def report(self, path, stats):
+        """Do something with path and stats.
+        
+        :param str path: where profiling occurred
+        :param dict stats: profiling statistics
+
+        """
+        ...
+
+```
+
 ## Testing
 To run the tests:
 ```

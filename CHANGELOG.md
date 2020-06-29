@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 - Removed support of python 2.7, 3.5
+- Updated documentation
+- Added code of conduct
 
 ## [1.0.3] - 2019-11-04
 - Fixed an issue where concurrent calls to an API would cause "Profiling session has already begun" exception.

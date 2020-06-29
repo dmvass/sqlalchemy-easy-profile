@@ -10,9 +10,9 @@ from .termcolors import colorize
 def shorten(text, length, placeholder="..."):
     """Truncate the given text to fit in the given length.
 
-    :param str|unicode text: string for truncate
+    :param str text: string for truncate
     :param int length: max length of string
-    :param str|unicode placeholder: append to the end of truncated text
+    :param str placeholder: append to the end of truncated text
 
     :return: truncated string
 
@@ -29,7 +29,7 @@ class Reporter(ABC):
     def report(self, path, stats):
         """Reports profiling statistic to a stream.
 
-        :param str|unicode path: where profiling occurred
+        :param str path: where profiling occurred
         :param dict stats: profiling statistics
 
         """
@@ -40,7 +40,7 @@ class StreamReporter(Reporter):
     will be written to ``sys.stdout``.
 
     :param int medium: a medium threshold count
-    :param int high: a medium threshold count
+    :param int high: a high threshold count
     :param file: output destination (stdout by default)
     :param bool colorized: set True if output should be colorized
     :param int display_duplicates: how much sql duplicates will be displayed
@@ -108,10 +108,10 @@ class StreamReporter(Reporter):
         """Formats profiling statistics as table.
 
         :param dict stats: profiling statistics
-        :param str|unicode sep: columns separator character
+        :param str sep: columns separator character
 
         :return: formatted table
-        :rtype: str|unicode
+        :rtype: str
 
         """
         line = sep + "{}" + sep + "\n"
@@ -143,7 +143,7 @@ class StreamReporter(Reporter):
     def _info_line(self, line, total):
         """Returns colorized text according threshold.
 
-        :param str|unicode line: text which should be colorized
+        :param str line: text which should be colorized
         :param int total: threshold count
 
         :return: colorized text

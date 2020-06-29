@@ -2,8 +2,8 @@ from collections import Counter
 from queue import Queue
 import time
 import unittest
+from unittest import mock
 
-import mock
 from sqlalchemy import create_engine, event
 from sqlalchemy.engine.base import Engine
 
