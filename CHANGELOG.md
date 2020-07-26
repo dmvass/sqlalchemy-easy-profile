@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [1.1.1] - 2020-07-26
+- Fixed deprecated time.clock [issue-16]
+
 ## [1.1.0] - 2020-06-29
 - Removed support of python 2.7, 3.5
 - Updated documentation
