@@ -142,9 +142,9 @@ class TestSessionProfiler(unittest.TestCase):
         self.assertListEqual(debug_queries, stats["call_stack"])
         self.assertDictEqual(stats["duplicates"], duplicates)
 
-    @mock.patch("easy_profile.profiler._timer")
+    @mock.patch("easy_profile.profiler.perf_counter")
     def test__before_cursor_execute(self, mocked):
-        expected_time = time.time()
+        expected_time = time.perf_counter()
         mocked.return_value = expected_time
         profiler = SessionProfiler()
         context = mock.Mock()
@@ -158,7 +158,7 @@ class TestSessionProfiler(unittest.TestCase):
         )
         self.assertEqual(context._query_start_time, expected_time)
 
-    @mock.patch("easy_profile.profiler._timer")
+    @mock.patch("easy_profile.profiler.perf_counter")
     def test__after_cursor_execute(self, mocked):
         expected_query = debug_queries[0]
         mocked.return_value = expected_query.end_time
