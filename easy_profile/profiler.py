@@ -3,12 +3,19 @@ import functools
 import inspect
 from queue import Queue
 import re
-from time import perf_counter
+import sys
+import time
 
 from sqlalchemy import event
 from sqlalchemy.engine.base import Engine
 
 from .reporters import StreamReporter
+
+# Optimize timer function for the platform
+if sys.platform == "win32":  # pragma: no cover
+    _timer = time.perf_counter
+else:
+    _timer = time.time
 
 
 SQL_OPERATORS = ["select", "insert", "update", "delete"]
@@ -170,10 +177,10 @@ class SessionProfiler:
 
     def _before_cursor_execute(self, conn, cursor, statement, parameters,
                                context, executemany):
-        context._query_start_time = perf_counter()
+        context._query_start_time = _timer()
 
     def _after_cursor_execute(self, conn, cursor, statement, parameters,
                               context, executemany):
         self.queries.put(DebugQuery(
-            statement, parameters, context._query_start_time, perf_counter()
+            statement, parameters, context._query_start_time, _timer()
         ))
