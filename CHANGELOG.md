@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [1.1.2] - 2020-10-21
+- Fixed queries for UNIX platforms [issue-18]
+
 ## [1.1.1] - 2020-07-26
 - Fixed deprecated time.clock [issue-16]
 
