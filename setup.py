@@ -48,7 +48,7 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ],
     keywords=["sqlalchemy", "easy", "profile", "profiler", "profiling"],
-    install_requires=["sqlalchemy>=1.1,<1.4", "sqlparse>=0.3.0"],
+    install_requires=["sqlalchemy>=1.1,<1.5", "sqlparse>=0.3.0"],
     tests_require=["coverage"],
     extras_require={"dev": ["tox", "bumpversion"]}
 )
