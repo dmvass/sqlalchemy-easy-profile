@@ -41,14 +41,14 @@ setuptools.setup(
         "Development Status :: 5 - Production/Stable",
         "Intended Audience :: Developers",
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
     keywords=["sqlalchemy", "easy", "profile", "profiler", "profiling"],
-    install_requires=["sqlalchemy>=1.1,<1.5", "sqlparse>=0.3.0"],
+    install_requires=["sqlalchemy<=1.4", "sqlparse>=0.3.0"],
     tests_require=["coverage"],
-    extras_require={"dev": ["tox", "bumpversion"]}
+    extras_require={"dev": ["tox"]}
 )
