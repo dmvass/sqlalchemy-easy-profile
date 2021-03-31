@@ -48,8 +48,7 @@ class TestSessionProfiler(unittest.TestCase):
         self.assertIsNone(profiler.queries)
 
     def test_initialization_custom(self):
-        engine = create_engine("sqlite://")
-        engine.url.database = "test"
+        engine = create_engine("sqlite:///test")
         profiler = SessionProfiler(engine)
         self.assertIs(profiler.engine, engine)
         self.assertEqual(profiler.db_name, "test")
