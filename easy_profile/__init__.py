@@ -8,5 +8,5 @@ from .profiler import SessionProfiler
 from .reporters import StreamReporter
 
 __all__ = ["EasyProfileMiddleware", "SessionProfiler", "StreamReporter"]
-__author__ = "Dmitri Vasilishin"
-__version__ = "1.1.0"
+__author__ = "Dmitry Vasilishin"
+__version__ = "1.2.0"

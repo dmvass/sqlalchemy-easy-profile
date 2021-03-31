@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [1.2.0] - 2021-03-31
+- Added support of python 3.9
+- Added support of SQLAlchemy 1.4
+- Removed support of python 3.6
+- Removed support of SQLAlchemy 1.1, 1.2
+
 ## [1.1.2] - 2020-10-21
 - Fixed queries for UNIX platforms [issue-18]
 
