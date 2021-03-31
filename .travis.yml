@@ -16,3 +16,6 @@ script:
   - tox
 after_success:
   - codecov
+branches:
+  only:
+  - master
