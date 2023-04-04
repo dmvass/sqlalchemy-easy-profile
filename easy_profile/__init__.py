@@ -9,4 +9,4 @@ from .reporters import StreamReporter
 
 __all__ = ["EasyProfileMiddleware", "SessionProfiler", "StreamReporter"]
 __author__ = "Dmitry Vasilishin"
-__version__ = "1.2.1"
+__version__ = "1.3.0"
