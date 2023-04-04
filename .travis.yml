@@ -2,13 +2,12 @@ sudo: false
 language: python
 dist: xenial
 python:
-  - "3.7"
-  - "3.8"
-  - "3.9"
+  - "3.10"
+  - "3.11-dev"
 matrix:
   include:
     - name: "PEP8"
-      python: 3.7
+      python: 3.10
       env: TOXENV=pep8
 install:
   - pip install tox-travis codecov
