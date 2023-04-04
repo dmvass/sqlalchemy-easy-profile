@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 jobs:
   test:
-    name: Run tests
+    name: Run checks
     runs-on: ubuntu-latest
     strategy:
       fail-fast: true
