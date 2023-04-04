@@ -1,0 +1,2 @@
+# We need a requirements.txt to test ourselves.
+# Otherwise the pip cache part of actions/setup-python fails.
