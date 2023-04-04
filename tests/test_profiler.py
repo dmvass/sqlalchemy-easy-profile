@@ -6,6 +6,7 @@ from unittest import mock
 
 from sqlalchemy import create_engine, event
 from sqlalchemy.engine.base import Engine
+from sqlalchemy.sql import text
 
 from easy_profile.profiler import DebugQuery, SessionProfiler, SQL_OPERATORS
 from easy_profile.reporters import Reporter
@@ -251,8 +252,9 @@ class TestSessionProfiler(unittest.TestCase):
 
     def _decorated_func(self, engine):
         """Function for testing profiler as decorator."""
-        engine.execute("CREATE TABLE users (id int, name varchar(8))")
-        engine.execute("SELECT id FROM users")
-        engine.execute("SELECT id FROM users")
-        engine.execute("SELECT name FROM users")
-        engine.execute("DELETE FROM users")
+        with engine.begin() as conn:
+            conn.execute(text("CREATE TABLE users (id int, name varchar(8))"))
+            conn.execute(text("SELECT id FROM users"))
+            conn.execute(text("SELECT id FROM users"))
+            conn.execute(text("SELECT name FROM users"))
+            conn.execute(text("DELETE FROM users"))
