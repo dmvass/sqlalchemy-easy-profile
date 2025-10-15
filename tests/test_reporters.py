@@ -131,11 +131,11 @@ class TestStreamReporter(unittest.TestCase):
         expected_output += summary
 
         actual_output = dest.write.call_args[0][0]
-        self.assertRegexpMatches(actual_output, expected_output)
+        self.assertRegex(actual_output, expected_output)
 
         for statement, count in expected_table_stats["duplicates"].items():
             statement = sqlparse.format(
                 statement, reindent=True, keyword_case="upper"
             )
             text = "\nRepeated {0} times:\n{1}\n".format(count + 1, statement)
-            self.assertRegexpMatches(actual_output, text)
+            self.assertRegex(actual_output, text)
