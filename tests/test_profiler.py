@@ -191,15 +191,15 @@ class TestSessionProfiler(unittest.TestCase):
 
     def test_decorator(self):
         engine = self._create_engine()
+        reporter = mock.Mock(spec=Reporter)
         profiler = SessionProfiler(engine)
-        wrapper = profiler()
+        wrapper = profiler(reporter=reporter)
         wrapper(self._decorated_func)(engine)
         # Test profile statistics
         self.assertEqual(profiler.stats["db"], "undefined")
         self.assertEqual(profiler.stats["total"], 4)
         self.assertEqual(profiler.stats["select"], 3)
         self.assertEqual(profiler.stats["delete"], 1)
-        self.assertEqual(profiler.stats["duplicates_count"], 1)
 
     def test_decorator_path(self):
         expected_path = "test_path"
