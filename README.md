@@ -1,4 +1,5 @@
 # SQLAlchemy Easy Profile
+
 [![Build Status](https://travis-ci.com/dmvass/sqlalchemy-easy-profile.svg?branch=master)](https://travis-ci.com/dmvass/sqlalchemy-easy-profile)
 [![image](https://img.shields.io/pypi/v/sqlalchemy-easy-profile.svg)](https://pypi.python.org/pypi/sqlalchemy-easy-profile)
 [![codecov](https://codecov.io/gh/dmvass/sqlalchemy-easy-profile/branch/master/graph/badge.svg)](https://codecov.io/gh/dmvass/sqlalchemy-easy-profile)
@@ -12,12 +13,14 @@ queries.
 ![report example](https://raw.githubusercontent.com/dmvass/sqlalchemy-easy-profile/master/images/report-example.png?raw=true)
 
 ## Installation
+
 Install the package with pip:
 ```
 pip install sqlalchemy-easy-profile
 ```
 
 ## Session profiler
+
 The profiling session hooks into SQLAlchemy and captures query statements, duration information,
 and query parameters. You also may have multiple profiling sessions active at the same
 time on the same or different Engines. If multiple profiling sessions are active on the
@@ -67,6 +70,7 @@ If it was not defined by default will be used a base streaming reporter. Decorat
 also accept `name` and `name_callback` optional parameters.
 
 ## WSGI integration
+
 Easy Profiler provides a specified middleware which can prints the number of database
 queries for each HTTP request and can be applied as a WSGI server middleware. So you
 can easily integrate Easy Profiler into any WSGI application.
@@ -120,21 +124,35 @@ class CustomReporter(Reporter):
 
 ```
 
-## Testing
-To run the tests:
-```
-python setup.py test
+## Development
+
+To ensure code quality and correctness, use [Poetry](https://python-poetry.org/) for managing dependencies and running tasks.
+
+**Install development dependencies:**
+```bash
+poetry install --with dev
 ```
 
-Or use `tox` for running in all tests environments.
+**Run tests:**
+```bash
+poetry run python -m unittest
+```
+
+**Check code style:**
+```bash
+poetry run flake8
+```
 
 ## License
+
 This code is distributed under the terms of the MIT license.
 
 ## Changes
+
 A full changelog is maintained in the [CHANGELOG](https://github.com/dmvass/sqlalchemy-easy-profile/blob/master/CHANGELOG.md) file.
 
 ## Contributing 
+
 **sqlalchemy-easy-profile** is an open source project and contributions are
 welcome! Check out the [Issues](https://github.com/dmvass/sqlalchemy-easy-profile/issues)
 page to see if your idea for a contribution has already been mentioned, and feel
